@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "@emotion/styled";
-import { RepoContext } from "../App";
 import { SplitToolbarItem } from "./SplitToolbarItem";
+import { useRepo } from "../models/Repo";
+import { colors } from "./colors";
 
 const Toolbar = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const RepoName = styled.div`
   font-size: 20px;
 
   a {
-    color: #0666d6;
+    color: ${colors.link};
     text-decoration: none;
   }
 `;
@@ -27,7 +28,7 @@ const Overview = styled.div`
 `;
 
 const Container = styled.div`
-  border-bottom: 1px solid #e1e4e8;
+  border-bottom: 1px solid ${colors.border};
 
   > div {
     width: 980px;
@@ -36,7 +37,6 @@ const Container = styled.div`
 `;
 
 const RepoNav = styled.div`
-  text-align: left;
   font-size: 14px;
   margin-top: 24px;
 
@@ -51,7 +51,7 @@ const RepoNav = styled.div`
     padding: 8px 16px;
 
     &:first-child {
-      border: 1px solid #e1e4e8;
+      border: 1px solid ${colors.border};
       border-bottom-color: #fff;
       border-top: 3px solid orange;
       border-top-left-radius: 3px;
@@ -61,9 +61,9 @@ const RepoNav = styled.div`
 `;
 
 export const RepoLayout = () => {
-  const repo = useContext(RepoContext);
+  const repo = useRepo();
 
-  return repo ? (
+  return (
     <Container>
       <div>
         <Overview>
@@ -89,5 +89,5 @@ export const RepoLayout = () => {
         </RepoNav>
       </div>
     </Container>
-  ) : null;
+  );
 };

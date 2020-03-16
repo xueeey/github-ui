@@ -42,7 +42,6 @@ const SearchResults = styled.div`
   background-color: #fff;
   font-size: 14px;
   width: 340px;
-  text-align: left;
   border: 1px solid #eee;
 
   > ul {
