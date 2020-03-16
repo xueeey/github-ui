@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState, createContext } from "react";
 import "./App.css";
 import styled from "@emotion/styled";
 import { Search } from "./components/Search";
+import { RepoLayout } from "./components/RepoLayout";
+import { Repo } from "./types/all";
 
 const Header = styled.div`
   background-color: #24292e;
@@ -31,7 +33,20 @@ const Logo = styled.svg`
   display: inline-block;
 `;
 
+export const RepoContext = createContext<Repo | null>(null);
+
 function App() {
+  const [repo, setRepo] = useState<Repo>();
+
+  useEffect(() => {
+    fetch("https://api.github.com/repos/facebook/react")
+      .then(resp => resp.json())
+      .then((data: Repo) => {
+        console.log(data);
+        setRepo(data);
+      });
+  }, []);
+
   return (
     <div className="App">
       <Header>
@@ -64,6 +79,11 @@ function App() {
           </NavItem>
         </Nav>
       </Header>
+      {repo ? (
+        <RepoContext.Provider value={repo}>
+          <RepoLayout />
+        </RepoContext.Provider>
+      ) : null}
     </div>
   );
 }
