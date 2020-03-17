@@ -1,6 +1,17 @@
 import { useContext } from "react";
 import { RepoContext } from "../App";
-import { Repo } from "../types/all";
+
+export type Repo = {
+  id: string;
+  full_name: string;
+  stargazers_count: number;
+  html_url: string;
+  forks_count: number;
+  watchers_count: number;
+  description: string;
+  name: string;
+  topics: string[];
+};
 
 export const useRepo = (): Repo => {
   const repo = useContext(RepoContext);

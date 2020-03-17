@@ -15,7 +15,7 @@ const Container = styled.div`
     font-weight: 600;
 
     &:first-child {
-      background-color: #f8f9fb;
+      background-color: #f2f5f7;
       border-bottom-left-radius: 3px;
       border-top-left-radius: 3px;
     }

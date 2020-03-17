@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { Repo } from "../types/all";
+import { Repo } from "../models/Repo";
 
 const SearchInput = styled.input`
   border-radius: 3px;
