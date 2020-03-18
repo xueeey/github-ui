@@ -17,12 +17,10 @@ const NavItem = styled.li`
   list-style-type: none;
   display: inline-block;
   padding: 8px;
-
-  > a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-  }
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
 `;
 
 const Logo = styled.svg`
@@ -48,18 +46,10 @@ export const Header = () => {
       </Logo>
       <Search></Search>
       <Nav>
-        <NavItem>
-          <a href="#">Pull requests</a>
-        </NavItem>
-        <NavItem>
-          <a href="#">Issues</a>
-        </NavItem>
-        <NavItem>
-          <a href="#">Marketplace</a>
-        </NavItem>
-        <NavItem>
-          <a href="#">Explore</a>
-        </NavItem>
+        <NavItem>Pull requests</NavItem>
+        <NavItem>Issues</NavItem>
+        <NavItem>Marketplace</NavItem>
+        <NavItem>Explore</NavItem>
       </Nav>
     </Container>
   );

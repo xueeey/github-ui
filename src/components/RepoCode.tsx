@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { RepoContext } from "../App";
 import { RepoFiles } from "./RepoFiles";
 import { colors } from "./colors";
+import { RepoToolbar } from "./RepoToolbar";
 
 const Container = styled.div`
   width: 980px;
@@ -24,6 +25,7 @@ const Topics = styled.div`
     font-size: 12px;
     margin-right: 8px;
     border-radius: 3px;
+    cursor: pointer;
   }
 `;
 
@@ -38,7 +40,8 @@ export const RepoCode = () => {
           <div key={topic}>{topic}</div>
         ))}
       </Topics>
-      <RepoFiles></RepoFiles>
+      <RepoToolbar />
+      <RepoFiles />
     </Container>
   ) : null;
 };

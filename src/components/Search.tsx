@@ -105,7 +105,6 @@ export const Search = () => {
             setTimeoutId(0);
             searchGithub(inputEl.value).then(data => {
               const resp = data as any;
-              console.log(resp);
               if (resp) {
                 setResults(resp.items);
               }
