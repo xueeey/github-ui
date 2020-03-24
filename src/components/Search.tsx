@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "@emotion/styled";
 import { Repo } from "../models/Repo";
+import { RepoContext } from "../App";
 
 const SearchInput = styled.input`
   border-radius: 3px;
@@ -39,6 +40,7 @@ const Container = styled.div`
 
 const SearchResults = styled.div`
   position: absolute;
+  z-index: 2;
   background-color: #fff;
   font-size: 14px;
   width: 340px;
@@ -87,6 +89,7 @@ export const Search = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [results, setResults] = useState<Repo[]>([]);
   const [timeoutId, setTimeoutId] = useState(0);
+  const { changeRepo } = useContext(RepoContext);
 
   return (
     <Container>
@@ -97,7 +100,9 @@ export const Search = () => {
         }}
         className={isFocused ? "focused" : ""}
         onBlur={() => {
-          setIsFocused(false);
+          setTimeout(() => {
+            setIsFocused(false);
+          }, 250);
         }}
         onInput={e => {
           const inputEl = e.target as HTMLInputElement;
@@ -125,8 +130,20 @@ export const Search = () => {
           {results.length ? (
             <ul>
               {results.slice(0, 10).map(repo => (
-                <li>
-                  <a href={repo.html_url}>
+                <li key={repo.full_name}>
+                  <a
+                    href={`/${repo.full_name}`}
+                    onClick={e => {
+                      changeRepo(repo.full_name);
+                      window.history.pushState(
+                        {},
+                        `Repo: ${repo.full_name}`,
+                        `/${repo.full_name}`
+                      );
+                      e.preventDefault();
+                      return false;
+                    }}
+                  >
                     <span>{repo.full_name}</span>
                     <span>{repo.stargazers_count} ⭐️</span>
                   </a>

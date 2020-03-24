@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "@emotion/styled";
-import { RepoContext } from "../App";
 import { RepoFiles } from "./RepoFiles";
 import { colors } from "./colors";
 import { RepoToolbar } from "./RepoToolbar";
+import { useRepo } from "../models/Repo";
 
 const Container = styled.div`
   width: 980px;
@@ -30,15 +30,14 @@ const Topics = styled.div`
 `;
 
 export const RepoCode = () => {
-  const repo = useContext(RepoContext);
+  const repo = useRepo();
 
   return repo ? (
     <Container>
       <Description>{repo.description}</Description>
       <Topics>
-        {repo.topics.map(topic => (
-          <div key={topic}>{topic}</div>
-        ))}
+        {repo.topics &&
+          repo.topics.map(topic => <div key={topic}>{topic}</div>)}
       </Topics>
       <RepoToolbar />
       <RepoFiles />

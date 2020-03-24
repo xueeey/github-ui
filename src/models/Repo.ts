@@ -10,11 +10,11 @@ export type Repo = {
   watchers_count: number;
   description: string;
   name: string;
-  topics: string[];
+  topics?: string[];
 };
 
 export const useRepo = (): Repo => {
-  const repo = useContext(RepoContext);
+  const { repo } = useContext(RepoContext);
 
   if (repo === null) {
     throw Error("repo should not be null");
