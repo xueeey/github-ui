@@ -1,14 +1,16 @@
-import React, { useEffect, useState, createContext } from "react";
+import React, { useEffect, useState, createContext, useMemo } from "react";
 import "./App.css";
 import { RepoLayout } from "./components/RepoLayout";
 import { Repo } from "./models/Repo";
 import { RepoCode } from "./components/RepoCode";
 import { Header } from "./components/Header";
 
-export const RepoContext = createContext<{
+type TRepoContext = {
   repo: Repo | null;
   changeRepo: (nextRepoName: string) => void;
-}>({
+};
+
+export const RepoContext = createContext<TRepoContext>({
   repo: null,
   changeRepo: () => {
     console.log("default changeRepo function");
@@ -16,7 +18,7 @@ export const RepoContext = createContext<{
 });
 
 function App({ initialRepo }: { initialRepo: string }) {
-  const [repo, setRepo] = useState<Repo>();
+  const [repo, setRepo] = useState<Repo | null>(null);
   const [currentRepo, setCurrentRepo] = useState<string>(initialRepo);
 
   useEffect(() => {
@@ -30,16 +32,19 @@ function App({ initialRepo }: { initialRepo: string }) {
       .then(repoData => setRepo(repoData));
   }, [currentRepo]);
 
+  const repoContextValue = useMemo<TRepoContext>(
+    () => ({
+      repo,
+      changeRepo: setCurrentRepo
+    }),
+    [repo]
+  );
+
   return (
     <div className="App">
-      <Header />
       {repo ? (
-        <RepoContext.Provider
-          value={{
-            repo,
-            changeRepo: setCurrentRepo
-          }}
-        >
+        <RepoContext.Provider value={repoContextValue}>
+          <Header />
           <RepoLayout />
           <RepoCode />
         </RepoContext.Provider>
